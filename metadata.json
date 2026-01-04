@@ -1,0 +1,7 @@
+{
+  "name": "Sullivan Connection - Conserto de Celulares Premium",
+  "description": "Site profissional para serviço de manutenção de smartphones com atendimento em domicílio e loja física. Design premium, rápido e confiável.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
