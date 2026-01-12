@@ -1,5 +1,5 @@
 {
-  "name": "sullivan-connection---conserto-de-celulares-premium",
+  "name": "sullivan-cell---conserto-de-celulares-premium",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -9,10 +9,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "react-dom": "^19.2.3",
-    "react": "^19.2.3",
-    "lucide-react": "^0.562.0",
-    "framer-motion": "^12.23.26"
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
+    "lucide-react": "0.475.0",
+    "framer-motion": "11.11.17"
   },
   "devDependencies": {
     "@types/node": "^22.14.0",
