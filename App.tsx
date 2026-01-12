@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { 
   Smartphone, 
   Instagram, 
@@ -7,17 +7,15 @@ import {
   Phone,
   ArrowRight,
   Truck,
-  Home,
   Maximize2,
   Settings,
-  Store,
   Wrench,
-  Cpu,
   Zap,
   ShieldCheck,
   PackageCheck,
   MessageCircle,
-  Sparkles
+  Sparkles,
+  LucideIcon
 } from 'lucide-react';
 import { motion } from 'framer-motion';
 
@@ -97,9 +95,9 @@ const ComparisonSlider: React.FC<{ before: string; after: string; label: string;
 };
 
 const SullivanSteps = () => {
-  const steps = [
+  const steps: { icon: LucideIcon, title: string, desc: string, color: string, border: string, glow: string, line: string }[] = [
     { 
-      icon: <MessageCircle />, 
+      icon: MessageCircle, 
       title: "Solicite", 
       desc: "Orçamento instantâneo",
       color: "text-rose-500",
@@ -108,7 +106,7 @@ const SullivanSteps = () => {
       line: "from-rose-500 to-orange-500"
     },
     { 
-      icon: <Truck />, 
+      icon: Truck, 
       title: "Coletamos", 
       desc: "Buscamos na sua porta",
       color: "text-orange-500",
@@ -117,7 +115,7 @@ const SullivanSteps = () => {
       line: "from-orange-500 to-yellow-400"
     },
     { 
-      icon: <Settings />, 
+      icon: Settings, 
       title: "Reparo", 
       desc: "Técnica de laboratório",
       color: "text-yellow-400",
@@ -126,7 +124,7 @@ const SullivanSteps = () => {
       line: "from-yellow-400 to-emerald-500"
     },
     { 
-      icon: <PackageCheck />, 
+      icon: PackageCheck, 
       title: "Entrega", 
       desc: "Seu celular renovado",
       color: "text-emerald-500",
@@ -147,40 +145,43 @@ const SullivanSteps = () => {
         </div>
 
         <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-y-16 gap-x-8">
-          {steps.map((step, idx) => (
-            <motion.div 
-              key={idx}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: idx * 0.1 }}
-              className="relative group flex flex-col items-center text-center"
-            >
-              <div className={`w-24 h-24 bg-zinc-950 rounded-[2.5rem] border-2 ${step.border} group-hover:border-opacity-100 border-opacity-40 ${step.glow} flex items-center justify-center mb-6 transition-all duration-700 shadow-2xl relative z-10 scale-95 group-hover:scale-105`}>
-                <div className={`${step.color} w-10 h-10 transition-transform duration-500 group-hover:rotate-12`}>
-                  {React.cloneElement(step.icon as React.ReactElement<{ className?: string }>, { className: "w-full h-full stroke-[2.5px]" })}
+          {steps.map((step, idx) => {
+            const IconComponent = step.icon;
+            return (
+              <motion.div 
+                key={idx}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: idx * 0.1 }}
+                className="relative group flex flex-col items-center text-center"
+              >
+                <div className={`w-24 h-24 bg-zinc-950 rounded-[2.5rem] border-2 ${step.border} group-hover:border-opacity-100 border-opacity-40 ${step.glow} flex items-center justify-center mb-6 transition-all duration-700 shadow-2xl relative z-10 scale-95 group-hover:scale-105`}>
+                  <div className={`${step.color} w-10 h-10 transition-transform duration-500 group-hover:rotate-12`}>
+                    <IconComponent className="w-full h-full stroke-[2.5px]" />
+                  </div>
+                  <div className={`absolute -top-3 -right-3 w-8 h-8 bg-zinc-900 border-2 ${step.border} rounded-xl flex items-center justify-center text-[11px] font-black ${step.color} shadow-lg`}>
+                    {idx + 1}
+                  </div>
                 </div>
-                <div className={`absolute -top-3 -right-3 w-8 h-8 bg-zinc-900 border-2 ${step.border} rounded-xl flex items-center justify-center text-[11px] font-black ${step.color} shadow-lg`}>
-                  {idx + 1}
-                </div>
-              </div>
 
-              <h4 className={`font-display font-black text-sm uppercase italic mb-2 tracking-tighter transition-colors ${step.color}`}>{step.title}</h4>
-              <p className="text-zinc-600 text-[9px] uppercase tracking-widest leading-tight font-bold opacity-80 group-hover:opacity-100">{step.desc}</p>
-              
-              {idx < steps.length - 1 && (
-                <div className="hidden md:block absolute top-12 left-[75%] w-[50%] h-[4px] z-0 overflow-hidden rounded-full">
-                   <div className={`w-full h-full bg-gradient-to-r ${step.line} opacity-20 group-hover:opacity-60 transition-opacity blur-[1px]`} />
-                   <motion.div 
-                     initial={{ x: "-100%" }}
-                     whileInView={{ x: "100%" }}
-                     transition={{ repeat: Infinity, duration: 2, ease: "linear" }}
-                     className="absolute inset-0 bg-white/10"
-                   />
-                </div>
-              )}
-            </motion.div>
-          ))}
+                <h4 className={`font-display font-black text-sm uppercase italic mb-2 tracking-tighter transition-colors ${step.color}`}>{step.title}</h4>
+                <p className="text-zinc-600 text-[9px] uppercase tracking-widest leading-tight font-bold opacity-80 group-hover:opacity-100">{step.desc}</p>
+                
+                {idx < steps.length - 1 && (
+                  <div className="hidden md:block absolute top-12 left-[75%] w-[50%] h-[4px] z-0 overflow-hidden rounded-full">
+                     <div className={`w-full h-full bg-gradient-to-r ${step.line} opacity-20 group-hover:opacity-60 transition-opacity blur-[1px]`} />
+                     <motion.div 
+                       initial={{ x: "-100%" }}
+                       whileInView={{ x: "100%" }}
+                       transition={{ repeat: Infinity, duration: 2, ease: "linear" }}
+                       className="absolute inset-0 bg-white/10"
+                     />
+                  </div>
+                )}
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </div>
@@ -236,7 +237,7 @@ export default function App() {
           >
             CELULAR QUEBRADO?<br />
             RESOLVEMOS DO <br/>
-            <span className="inline-block pr-12 text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-orange-500 to-rose-500">SEU JEITO!</span>
+            <span className="inline-block px-12 text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-orange-500 to-rose-500">SEU JEITO!</span>
           </motion.h1>
           
           <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }} className="flex flex-col md:flex-row justify-center items-center gap-8">
@@ -315,22 +316,25 @@ export default function App() {
         <div className="container mx-auto px-6 max-w-6xl">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-16">
             {[
-              { icon: <Zap />, title: "REPARO EXPRESS", desc: "Serviços concluídos com agilidade superior.", accent: "text-yellow-400" },
-              { icon: <ShieldCheck />, title: "GARANTIA REAL", desc: "Selo de confiança em todos os componentes.", accent: "text-emerald-400" },
-              { icon: <Wrench />, title: "TÉCNICA AVANÇADA", desc: "Laboratório especializado em micro-soldagem.", accent: "text-cyan-400" }
-            ].map((item, i) => (
-              <div key={i} className="flex gap-6 items-start group">
-                <div className={`w-16 h-16 bg-zinc-900 rounded-[1.5rem] flex items-center justify-center shrink-0 border border-zinc-800 group-hover:bg-zinc-800 transition-all duration-500 shadow-lg`}>
-                  <div className={`${item.accent} w-8 h-8 group-hover:scale-110 transition-transform`}>
-                    {React.cloneElement(item.icon as React.ReactElement<{ className?: string }>, { className: "w-full h-full" })}
+              { icon: Zap, title: "REPARO EXPRESS", desc: "Serviços concluídos com agilidade superior.", accent: "text-yellow-400" },
+              { icon: ShieldCheck, title: "GARANTIA REAL", desc: "Selo de confiança em todos os componentes.", accent: "text-emerald-400" },
+              { icon: Wrench, title: "TÉCNICA AVANÇADA", desc: "Laboratório especializado em micro-soldagem.", accent: "text-cyan-400" }
+            ].map((item, i) => {
+              const IconComponent = item.icon;
+              return (
+                <div key={i} className="flex gap-6 items-start group">
+                  <div className={`w-16 h-16 bg-zinc-900 rounded-[1.5rem] flex items-center justify-center shrink-0 border border-zinc-800 group-hover:bg-zinc-800 transition-all duration-500 shadow-lg`}>
+                    <div className={`${item.accent} w-8 h-8 group-hover:scale-110 transition-transform`}>
+                      <IconComponent className="w-full h-full" />
+                    </div>
+                  </div>
+                  <div>
+                    <h5 className="font-display font-black uppercase text-xs mb-2 tracking-widest">{item.title}</h5>
+                    <p className="text-zinc-600 text-[10px] leading-relaxed uppercase tracking-wider font-medium">{item.desc}</p>
                   </div>
                 </div>
-                <div>
-                  <h5 className="font-display font-black uppercase text-xs mb-2 tracking-widest">{item.title}</h5>
-                  <p className="text-zinc-600 text-[10px] leading-relaxed uppercase tracking-wider font-medium">{item.desc}</p>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
